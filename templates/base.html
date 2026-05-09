@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab|Ruda"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&family=Roboto&display=swap"/>
         <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/{{ CSS_FILE }}"/>
         {% if FEED_ALL_ATOM %}
         <link href="{{ FEED_DOMAIN }}/{% if FEED_ALL_ATOM_URL %}{{ FEED_ALL_ATOM_URL }}{% else %}{{ FEED_ALL_ATOM }}{% endif %}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Atom Feed"/>
@@ -36,21 +37,23 @@
                 {% endif %}
             </ul>
         {% endif %}
-        <p><em>{{ SITESUBTITLE }}</em></p>
+        <p><em id="sitesubtitle">{{ SITESUBTITLE }}</em></p>
     </header>
     <nav>
         <ul>
             {% for title, link in MENUITEMS %}
                 <li><a href="{{ link }}">{{ title }}</a></li>
             {% endfor %}
-            {% if DISPLAY_CATEGORIES_ON_MENU %}
-                {% for cat, null in categories %}
-                    <li><a {% if cat==category %} class="active" {% endif %}href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></li>
-                {% endfor %}
-            {% endif %}
             {% if DISPLAY_PAGES_ON_MENU %}
                 {% for p in pages %}
-                    <li><a {% if p==page %} class="active" {% endif %}href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}</a></li>
+                    <li><a {% if p==page %} class="active" {% endif %}href="{{ SITEURL }}/{{ p.url }}">{{ p.title }}/</a></li>
+                {% endfor %}
+            {% endif %}
+            {% if DISPLAY_CATEGORIES_ON_MENU %}
+                {% for cat, null in categories %}
+                    {% if not MENU_CATEGORIES or cat|string in MENU_CATEGORIES %}
+                        <li><a {% if cat==category %} class="active" {% endif %}href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}/</a></li>
+                    {% endif %}
                 {% endfor %}
             {% endif %}
         </ul>

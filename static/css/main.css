@@ -103,8 +103,12 @@ time {
   align-items: end;
 }
 
+#container nav ul li a {
+    border-bottom: 0.4em solid transparent;
+}
+
 #container nav ul li a.active {
-  border-bottom: 0.4em solid #666666;
+    border-bottom: 0.4em solid #666666;
 }
 
 #container main {
